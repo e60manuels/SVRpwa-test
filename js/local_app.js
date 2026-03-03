@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.0"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.1"; // Increment this number with each commit
 
 (function () {
     // Typewriter effect for splash screen (now using CSS class)
@@ -1574,16 +1574,30 @@ window.showLoginScreen = function() {
         <p style="color: #666; margin-bottom: 20px;">Log in om de app te gebruiken</p>
         
         <input type="email" id="svr-email" placeholder="Email" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px;">
-        <input type="password" id="svr-password" placeholder="Wachtwoord" style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px;">
-        
+        <div style="position: relative; margin-bottom: 20px;">
+          <input type="password" id="svr-password" placeholder="Wachtwoord" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px;">
+          <i class="fas fa-eye" id="togglePassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
+        </div>
+
         <button id="svr-login-btn" style="width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold;">Inloggen</button>
         <div id="login-error" style="color: red; margin-top: 15px; display: none;"></div>
-      </div>
-    </div>
-  `;
-  
-  document.body.insertAdjacentHTML('beforeend', loginHtml);
-  
+        </div>
+        </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', loginHtml);
+
+        // Add toggle functionality
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('svr-password');
+
+        togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+        });  
   document.getElementById('svr-login-btn').addEventListener('click', async () => {
     const email = document.getElementById('svr-email').value;
     const password = document.getElementById('svr-password').value;
