@@ -190,25 +190,20 @@
         /* Swiper Pagination Below Image */
 
         .svr-detail-swiper {
-
             padding-bottom: 30px !important;
-
-            height: auto !important;
-
+            height: 240px !important;
+            background: #f8f8f8;
         }
 
         .svr-detail-swiper .swiper-pagination {
-
             bottom: 0 !important;
-
         }
 
         .svr-detail-swiper .swiper-slide img {
-
-            height: 300px !important;
-
-            object-fit: cover;
-
+            max-width: 100% !important;
+            max-height: 100% !important;
+            height: 100% !important;
+            object-fit: contain;
         }
 
         

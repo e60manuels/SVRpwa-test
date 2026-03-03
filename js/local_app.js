@@ -1,6 +1,7 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.2"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.3"; // Increment this number with each commit
 
+// [SECTION: INITIALIZATION]
 (function () {
     // Typewriter effect for splash screen (now using CSS class)
     function typewriterEffect(elementId, text) {
@@ -103,7 +104,7 @@ window.SVR_PWA_VERSION = "0.2.2"; // Increment this number with each commit
         }
     };
 
-    // --- CSV & SEARCH LOGIC ---
+    // [SECTION: CSV_SEARCH_LOGIC]
     window.allLocations = [];
     async function loadLocations() {
         try {
@@ -150,6 +151,7 @@ window.SVR_PWA_VERSION = "0.2.2"; // Increment this number with each commit
         return null;
     };
 
+    // [SECTION: NETWORK_PROXY]
     window.proxyUrl = function(url, provider = 'ao') {
         if (provider === 'ao') return "https://api.allorigins.win/get?url=" + encodeURIComponent(url);
         return "https://corsproxy.io/?" + encodeURIComponent(url);
@@ -1282,7 +1284,8 @@ async function renderDetail(objectId) {
                                     const swiperContainer = document.createElement('div');
                                     swiperContainer.className = 'swiper svr-detail-swiper';
                                     swiperContainer.style.width = '100%';
-                                    swiperContainer.style.height = '300px';
+                                    swiperContainer.style.height = '240px';
+                                    swiperContainer.style.background = '#f8f8f8';
                                     swiperContainer.style.position = 'relative';
                                     swiperContainer.style.touchAction = 'pan-y';
                                     swiperContainer.style.overflow = 'hidden';
@@ -1298,12 +1301,13 @@ async function renderDetail(objectId) {
                                         swiperSlide.style.alignItems = 'center';
                                         swiperSlide.style.justifyContent = 'center';
                                         swiperSlide.style.width = '100%';
+                                        swiperSlide.style.height = '100%';
 
                                         const imgElement = document.createElement('img');
                                         imgElement.src = src;
-                                        imgElement.style.width = '100%';
-                                        imgElement.style.height = '100%';
-                                        imgElement.style.objectFit = 'cover';
+                                        imgElement.style.maxWidth = '100%';
+                                        imgElement.style.maxHeight = '100%';
+                                        imgElement.style.objectFit = 'contain';
 
                                         swiperSlide.appendChild(imgElement);
                                         swiperWrapper.appendChild(swiperSlide);
