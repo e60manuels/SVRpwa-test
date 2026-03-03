@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.1"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.2"; // Increment this number with each commit
 
 (function () {
     // Typewriter effect for splash screen (now using CSS class)
@@ -359,22 +359,26 @@ window.SVR_PWA_VERSION = "0.2.1"; // Increment this number with each commit
         });
     };
 
-    window.closeFilterOverlay = function() { 
+    window.hideFilterOverlay = function() {
         overlay.classList.remove('open'); 
         backdrop.classList.remove('open');
-        
-        // Also handle detail container if open
-        const detailOverlay = document.getElementById('detail-container');
-        if (detailOverlay && detailOverlay.classList.contains('open')) {
-            window.handleDetailBack();
-        }
-
         overlay.style.transform = ''; // Clear inline transform from swipe
         setTimeout(() => { 
-            if (!overlay.classList.contains('open') && (!detailOverlay || !detailOverlay.classList.contains('open'))) {
+            if (!overlay.classList.contains('open')) {
                 backdrop.style.display = 'none'; 
             }
         }, 500);
+    };
+
+    window.closeFilterOverlay = function() { 
+        // If we are in the 'filters' history state, going back will trigger onpopstate
+        // which will call hideFilterOverlay().
+        if (history.state && history.state.view === 'filters') {
+            history.back();
+        } else {
+            // Fallback if state is already gone
+            window.hideFilterOverlay();
+        }
     };
     backdrop.onclick = window.closeFilterOverlay;
 
@@ -385,6 +389,10 @@ window.SVR_PWA_VERSION = "0.2.1"; // Increment this number with each commit
         backdrop.style.display = 'block';
         overlay.style.transform = ''; // Reset any residual swipe transforms
         setTimeout(() => { overlay.classList.add('open'); backdrop.classList.add('open'); }, 10);
+        
+        // Push state for Android back-button support
+        history.pushState({ view: 'filters' }, "");
+        
         if (content.children.length === 0 && !window.isFetchingFilters) await fetchFilterData();
     };
 
@@ -845,10 +853,27 @@ window.onpopstate = (e) => {
     const detailSheet = detailOverlay.querySelector('.detail-sheet-content');
     const backdrop = document.getElementById('svr-filter-backdrop');
     const splashScreen = document.getElementById('detail-splash');
-
+    const filterOverlay = document.getElementById('svr-filter-overlay');
 
     if (e.state) {
         applyState(e.state);
+        
+        // Handle Filters View
+        if (e.state.view === 'filters') {
+            // This is reached if we navigate FORWARD to filters (rare but possible via history)
+            backdrop.style.display = 'block';
+            setTimeout(() => { 
+                filterOverlay.classList.add('open'); 
+                backdrop.classList.add('open'); 
+            }, 10);
+        } else {
+            // For any other view, if the filters were open, hide them
+            if (filterOverlay && filterOverlay.classList.contains('open')) {
+                window.hideFilterOverlay();
+            }
+        }
+
+        // Handle Detail View
         if (e.state.view === 'detail' && e.state.objectId) {
             // Show splash and start typewriter effect
             if (splashScreen) {
@@ -872,17 +897,22 @@ window.onpopstate = (e) => {
         } else if (e.state.view === 'list' || e.state.view === 'map') {
             detailSheet.classList.remove('open');
             detailOverlay.classList.remove('open');
-            if (backdrop) backdrop.classList.remove('open');
+            if (backdrop && !filterOverlay.classList.contains('open')) backdrop.classList.remove('open');
             if (splashScreen) splashScreen.classList.add('hide'); // Hide splash instantly on state change
 
             setTimeout(() => {
                 detailOverlay.style.display = 'none';
-                if (backdrop) backdrop.style.display = 'none';
+                if (backdrop && !filterOverlay.classList.contains('open')) backdrop.style.display = 'none';
             }, 400);
         }
     } else {
         // Fallback if state is null (e.g., initial page load or unmanaged history entry)
         applyState({ view: 'map' }); // Default to map view
+        
+        if (filterOverlay && filterOverlay.classList.contains('open')) {
+            window.hideFilterOverlay();
+        }
+
         detailSheet.classList.remove('open');
         detailOverlay.classList.remove('open');
         if (backdrop) backdrop.classList.remove('open');
