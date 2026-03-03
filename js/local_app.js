@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = 89; // Increment this number with each commit
+window.SVR_PWA_VERSION = 99; // Increment this number with each commit
 
 (function () {
     // Typewriter effect for splash screen (now using CSS class)
