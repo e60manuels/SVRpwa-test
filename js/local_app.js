@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.4"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.5"; // Increment this number with each commit
 
 // [SECTION: INITIALIZATION]
 (function () {
@@ -1681,9 +1681,13 @@ async function initApp() {
 
 window.initializeApp = function() {
     history.replaceState({ view: 'map' }, "");
-    
-    // Set version display
-    const verDisplay = document.getElementById('pwa-version-display');
+
+    // Reset filters on startup
+    window.currentFilters = [];
+    // Clear filters cookie to ensure proxy/server starts fresh
+    document.cookie = "filters=[]; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=svr.nl";
+
+    // Set version display    const verDisplay = document.getElementById('pwa-version-display');
     if (verDisplay) verDisplay.textContent = `v${window.SVR_PWA_VERSION}`;
 
     // Direct de kaart EN de lijst vullen vanuit cache of preset (Instant Map & List)
