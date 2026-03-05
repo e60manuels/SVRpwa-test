@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.5"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.6"; // Increment this number with each commit
 
 // [SECTION: INITIALIZATION]
 (function () {
@@ -1686,8 +1686,11 @@ window.initializeApp = function() {
     window.currentFilters = [];
     // Clear filters cookie to ensure proxy/server starts fresh
     document.cookie = "filters=[]; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=svr.nl";
+    // Clear cache to ensure we load the full preset (unfiltered) on fresh start
+    localStorage.removeItem('svr_cache_campsites');
 
-    // Set version display    const verDisplay = document.getElementById('pwa-version-display');
+    // Set version display
+    const verDisplay = document.getElementById('pwa-version-display');
     if (verDisplay) verDisplay.textContent = `v${window.SVR_PWA_VERSION}`;
 
     // Direct de kaart EN de lijst vullen vanuit cache of preset (Instant Map & List)
