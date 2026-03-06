@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.16"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.17"; // Increment this number with each commit
 
 // [SECTION: INITIALIZATION]
 (function () {
@@ -1664,13 +1664,19 @@ async function checkSession() {
     const sessionId = localStorage.getItem('svr_session_id');
     const options = { headers: {} };
 
-    if (sessionId) {
-      options.headers['X-SVR-Session'] = sessionId;
-      console.log('✅ Found session ID in localStorage, attempting to validate:', sessionId.substring(0, 20) + '...');
-    } else {
+    if (!sessionId) {
       console.log('❌ No session ID found in localStorage.');
       return false;
     }
+
+    // OFFLINE SUPPORT: Als we offline zijn, vertrouwen we op de aanwezigheid van de sessionId
+    if (!navigator.onLine) {
+      console.log('📡 Offline mode: Trusting existing session ID from cache.');
+      return true;
+    }
+
+    options.headers['X-SVR-Session'] = sessionId;
+    console.log('✅ Found session ID, validating online...', sessionId.substring(0, 20) + '...');
     
     const response = await fetch('https://svr-proxy-worker.e60-manuels.workers.dev/api/objects?page=0&lat=52.1326&lng=5.2913&distance=1&limit=1', options);
     
@@ -1683,17 +1689,21 @@ async function checkSession() {
       return false;
     }
     console.log(`❌ Ongeldige sessie: Status ${response.status}`);
-    localStorage.removeItem('svr_session_id'); // Clear invalid session
     return false;
   } catch (error) {
     console.error('Session check failed:', error);
-    localStorage.removeItem('svr_session_id'); // Clear session on network error
+    // Bij netwerkfout (niet 401) maar wel offline, laten we de sessie staan
+    if (!navigator.onLine) return true;
     return false;
   }
 }
 
 async function loginToSVR(email, password) {
   try {
+    if (!navigator.onLine) {
+      alert('Inloggen vereist een internetverbinding.');
+      return false;
+    }
     const response = await fetch('https://svr-proxy-worker.e60-manuels.workers.dev/login', {
       method: 'POST',
       headers: {
@@ -1808,6 +1818,17 @@ window.showLoginScreen = function() {
 
 async function initApp() {
   console.log('🚀 SVR PWA Start - Checking session...');
+  
+  // Als we offline zijn, proberen we direct te starten
+  if (!navigator.onLine) {
+    const hasSession = localStorage.getItem('svr_session_id');
+    if (hasSession) {
+      console.log('📡 Offline mode & Session found. Starting app shell.');
+      window.initializeApp();
+      return;
+    }
+  }
+
   const hasValidSession = await checkSession();
   
   if (hasValidSession) {
