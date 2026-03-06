@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.17"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.18"; // Increment this number with each commit
 
 // [SECTION: INITIALIZATION]
 (function () {
@@ -1742,7 +1742,7 @@ async function loginToSVR(email, password) {
   }
 }
 
-window.showLoginScreen = function() {
+window.showLoginScreen = function(reason = "") {
   if (document.getElementById('login-overlay')) return;
 
   const loginHtml = `
@@ -1755,7 +1755,8 @@ window.showLoginScreen = function() {
         box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 400px; width: 90%;
       ">
         <h2 style="margin-top: 0; color: #333;">SVR Login</h2>
-        <p style="color: #666; margin-bottom: 20px;">Log in om de app te gebruiken</p>
+        <p style="color: #666; margin-bottom: 5px;">Log in om de app te gebruiken</p>
+        ${reason ? `<p style="color: #c0392b; font-size: 12px; margin-bottom: 15px;"><i>Status: ${reason}</i></p>` : '<div style="margin-bottom: 20px;"></div>'}
         
         <input type="email" id="svr-email" placeholder="Email" style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px;">
         <div style="position: relative; margin-bottom: 20px;">
@@ -1775,13 +1776,15 @@ window.showLoginScreen = function() {
         const togglePassword = document.getElementById('togglePassword');
         const password = document.getElementById('svr-password');
 
-        togglePassword.addEventListener('click', function (e) {
-        // toggle the type attribute
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        // toggle the eye slash icon
-        this.classList.toggle('fa-eye-slash');
-        });  
+        if (togglePassword && password) {
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
   document.getElementById('svr-login-btn').addEventListener('click', async () => {
     const email = document.getElementById('svr-email').value;
     const password = document.getElementById('svr-password').value;
@@ -1819,12 +1822,17 @@ window.showLoginScreen = function() {
 async function initApp() {
   console.log('🚀 SVR PWA Start - Checking session...');
   
+  const hasSessionInStorage = !!localStorage.getItem('svr_session_id');
+
   // Als we offline zijn, proberen we direct te starten
   if (!navigator.onLine) {
-    const hasSession = localStorage.getItem('svr_session_id');
-    if (hasSession) {
+    if (hasSessionInStorage) {
       console.log('📡 Offline mode & Session found. Starting app shell.');
       window.initializeApp();
+      return;
+    } else {
+      console.log('📡 Offline mode but NO session found.');
+      window.showLoginScreen("Offline (Geen sessie in geheugen)");
       return;
     }
   }
@@ -1836,7 +1844,7 @@ async function initApp() {
     window.initializeApp();
   } else {
     console.log('❌ Geen geldige sessie, login scherm tonen...');
-    window.showLoginScreen();
+    window.showLoginScreen(hasSessionInStorage ? "Sessie verlopen" : "Niet ingelogd");
   }
 }
 
