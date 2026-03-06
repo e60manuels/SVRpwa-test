@@ -1,7 +1,8 @@
-const CACHE_NAME = 'svr-pwa-cache-v0.2.15';
+const CACHE_NAME = 'svr-pwa-cache-v0.2.16';
 const MAP_CACHE_NAME = 'svr-pwa-map-tiles';
 const ASSETS_TO_CACHE = [
   './',
+  './index.html',
   './offline.html',
   './css/local_style.css',
   './css/custom_styles.css',
@@ -78,8 +79,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Strategy for index.html (network-first, then cache)
-  if (url.pathname === '/' || url.pathname === '/index.html') {
+  // Robust Strategy for App Shell (index.html)
+  // This ensures the app shell loads offline even in subdirectories
+  const isAppShell = event.request.mode === 'navigate' || 
+                     url.pathname.endsWith('/index.html') || 
+                     (url.origin === location.origin && url.pathname.endsWith('/'));
+
+  if (isAppShell) {
     event.respondWith(
       fetch(event.request)
         .then(networkResponse => {
@@ -89,8 +95,11 @@ self.addEventListener('fetch', (event) => {
           });
         })
         .catch(() => {
-          return caches.match(event.request).then(response => {
-            return response || caches.match('./offline.html'); // Fallback to cache or offline page
+          // If network fails, try to serve the ROOT of the app from cache
+          return caches.match('./index.html').then(response => {
+            return response || caches.match('./').then(rootResponse => {
+                return rootResponse || caches.match('./offline.html');
+            });
           });
         })
     );
@@ -101,13 +110,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request).then((response) => {
       // Cache-first strategy for other static assets
       return response || fetch(event.request).catch((error) => {
-        // Fallback to offline page for navigation requests that fail
-        if (event.request.mode === 'navigate') {
-          console.log('SW: Network failed for navigation, serving offline page', error);
-          return caches.match('./offline.html');
-        }
-        // For other failed requests (e.g., images, scripts), just re-throw the error
-        // so the browser's default error handling applies (e.g., broken image icon)
+        // For image/script requests that fail and are not in cache
         throw error;
       });
     })
