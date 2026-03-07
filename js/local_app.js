@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.23"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.24"; // Increment this number with each commit
 
 // [SECTION: INITIALIZATION]
 (function () {

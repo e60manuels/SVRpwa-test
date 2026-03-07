@@ -24,7 +24,7 @@ The project consists of static files and does not require a complex build step.
     npx http-server
     ```
 *   **Deployment:** Files are hosted on GitHub Pages. Staging is at `e60manuels.github.io/SVRpwa-test/` and Production is at `e60manuels.github.io/SVRpwa/`.
-*   **Version Management:** The app uses **Semantic Versioning (SemVer)** (e.g., `v0.2.23`). Versions are updated in `js/local_app.js`, `sw.js`, and `index.html`.
+*   **Version Management:** The app uses **Semantic Versioning (SemVer)** (e.g., `v0.2.24`). Versions are updated in `js/local_app.js`, `sw.js`, and `index.html`.
 
 ## Development Conventions
 *   **Coding Style:**
@@ -38,20 +38,21 @@ The project consists of static files and does not require a complex build step.
     *   **Staging:** Push to `SVRpwa-test.git`. Increments patch version.
     *   **Production:** Push current tested state to `SVRpwa.git`.
 
-## Recent Development & Current Status (v0.2.23)
+## Recent Development & Current Status (v0.2.24)
 
 ### Key Achievements:
-*   **True Edge-to-Edge Map:** achieved the "Google Maps" look on Android by setting `theme-color` to `transparent` and making the map container `fixed` with `inset: 0`. The map now renders behind a translucent navigation bar.
-*   **Safe Area Protection:** applied `env(safe-area-inset-bottom)` and `env(safe-area-inset-top)` to all UI controls (header, action stack, detail sheet, list view) to ensure they remain accessible and aren't hidden by system bars.
-*   **Removed Diagnostic Labels:** Deleted the temporary `Status: [reason]` labels from the login screen for a cleaner production UI.
-*   **Version Increment:** Updated app version to `v0.2.23` across `local_app.js`, `sw.js`, and `index.html`.
+*   **Reverted to Stable Yellow Branding:** Reverted all "Edge-to-Edge" experiments. The `theme-color` is back to `#FDCC01`, ensuring consistent yellow status and navigation bars on Android.
+*   **Restored Layout:** Restored `#map-container` and `#list-container` to their stable absolute positioning with header offsets.
+*   **Removed Diagnostic Labels:** Permanently deleted the temporary `Status: [reason]` labels from the login screen.
+*   **Safe Area Maintenance:** Retained `env(safe-area-inset-bottom)` for the action stack and detail sheets to ensure buttons remain usable on modern gesture-based navigation.
+*   **Version Increment:** Updated app version to `v0.2.24` across `local_app.js`, `sw.js`, and `index.html`.
 
 ### Future Work:
 *   Continue with the **Modernization Plan** (located in `bestanden/modernization_plan.md`).
 
 ## Key Files
 *   `index.html`: Main entry point.
-*   `js/local_app.js`: Core logic (v0.2.23).
+*   `js/local_app.js`: Core logic (v0.2.24).
 *   `css/local_style.css`: Primary styling.
-*   `sw.js`: Service worker (v0.2.23).
+*   `sw.js`: Service worker (v0.2.24).
 *   `manifest.json`: PWA configuration (relative paths).
