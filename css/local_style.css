@@ -166,8 +166,16 @@
         .help-scroll-item { display: none !important; }
         #help-overlay.is-list-view .help-scroll-item { display: flex !important; }
 
-        #map-container, #list-container { position: absolute; top: var(--header-height); left: 0; right: 0; bottom: 0; }
-        #list-container { background: #eee; overflow-y: auto; display: none; padding: 12px; }
+        #map-container { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            z-index: 0;
+        }
+        #list-container { 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            background: #eee; overflow-y: auto; display: none; 
+            padding: calc(var(--header-height) + 12px) 12px env(safe-area-inset-bottom, 12px) 12px;
+            z-index: 5;
+        }
 
         /* --- ACTION BUTTONS STACK --- */
         .map-actions-stack {
@@ -340,6 +348,7 @@
             overflow-y: auto;
             flex-grow: 1;
             overscroll-behavior: none;
+            padding-bottom: env(safe-area-inset-bottom, 20px);
         }
         .detail-overlay.open .detail-sheet-content {
             transform: translateY(0%); /* Slide into view */

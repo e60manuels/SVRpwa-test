@@ -1,0 +1,9 @@
+I want the map to show through the bottom Android navigation bar (edge-to-edge).
+
+Please update the code to:
+1. Add `viewport-fit=cover` to the viewport meta tag in index.html
+2. Set `theme_color` to `transparent` in both the manifest.json and the meta tag
+3. Make the map container `position: fixed; inset: 0` so it renders full screen, underneath the nav bar
+4. Apply `padding-bottom: env(safe-area-inset-bottom)` to any UI controls/buttons so they are not hidden behind the nav bar
+
+The goal is the same pattern Google Maps uses on Android — map tiles visible behind a translucent nav bar, with UI controls safely above it.

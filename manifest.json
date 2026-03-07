@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#FDCC01",
-  "theme_color": "#FDCC01",
+  "theme_color": "transparent",
   "icons": [
     {
       "src": "icons/icon-192.webp",
