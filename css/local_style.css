@@ -11,6 +11,7 @@
             --header-expanded-height: 96px;
             --header-height: var(--header-base-height);
             --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            color-scheme: only light;
         }
 
         body.has-filters {
@@ -23,6 +24,7 @@
             background-color: var(--svr-yellow); 
             height: 100%; width: 100%;
             overflow: hidden; 
+            color-scheme: only light;
         }
 
         .svr-header {
