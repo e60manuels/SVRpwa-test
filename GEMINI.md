@@ -24,7 +24,7 @@ The project consists of static files and does not require a complex build step.
     npx http-server
     ```
 *   **Deployment:** Files are hosted on GitHub Pages. Staging is at `e60manuels.github.io/SVRpwa-test/` and Production is at `e60manuels.github.io/SVRpwa/`.
-*   **Version Management:** The app uses **Semantic Versioning (SemVer)** (e.g., `v0.2.25`). Versions are updated in `js/local_app.js`, `sw.js`, and `index.html`.
+*   **Version Management:** The app uses **Semantic Versioning (SemVer)** (e.g., `v0.2.26`). Versions are updated in `js/local_app.js`, `sw.js`, and `index.html`.
 
 ## Development Conventions
 *   **Coding Style:**
@@ -38,22 +38,22 @@ The project consists of static files and does not require a complex build step.
     *   **Staging:** Push to `SVRpwa-test.git`. Increments patch version.
     *   **Production:** Push current tested state to `SVRpwa.git`.
 
-## Recent Development & Current Status (v0.2.25)
+## Recent Development & Current Status (v0.2.26)
 
 ### Key Achievements:
-*   **Offline Search Fallback:** Implemented a fallback mechanism in `performSearch` to allow local searching of cached campsites by name or city when offline, preventing search failures due to inaccessible geocoding services.
+*   **Regression Fix (v0.2.25 revert):** Reverted the offline search fallback implementation in `js/local_app.js` (introduced in v0.2.25) due to a critical regression causing map tiles and markers to disappear. This restores full map functionality.
 *   **Reverted to Stable Yellow Branding:** Reverted all "Edge-to-Edge" experiments. The `theme-color` is back to `#FDCC01`, ensuring consistent yellow status and navigation bars on Android.
 *   **Restored Layout:** Restored `#map-container` and `#list-container` to their stable absolute positioning with header offsets.
 *   **Removed Diagnostic Labels:** Permanently deleted the temporary `Status: [reason]` labels from the login screen.
 *   **Safe Area Maintenance:** Retained `env(safe-area-inset-bottom)` for the action stack and detail sheets to ensure buttons remain usable on modern gesture-based navigation.
-*   **Version Increment:** Updated app version to `v0.2.25` across `local_app.js`, `sw.js`, and `index.html`.
+*   **Version Increment:** Updated app version to `v0.2.26` across `local_app.js`, `sw.js`, and `index.html`.
 
 ### Future Work:
 *   Continue with the **Modernization Plan** (located in `bestanden/modernization_plan.md`).
 
 ## Key Files
 *   `index.html`: Main entry point.
-*   `js/local_app.js`: Core logic (v0.2.25).
+*   `js/local_app.js`: Core logic (v0.2.26).
 *   `css/local_style.css`: Primary styling.
-*   `sw.js`: Service worker (v0.2.25).
+*   `sw.js`: Service worker (v0.2.26).
 *   `manifest.json`: PWA configuration (relative paths).

@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.25"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.26"; // Increment this number with each commit
 
 // [SECTION: INITIALIZATION]
 (function () {
@@ -1110,48 +1110,12 @@ window.performSearch = async function(forceAPI = false) {
     const q = $searchInput.val().trim();
     let sLat = 52.1326, sLng = 5.2913;
 
-    // --- OFFLINE SEARCH FALLBACK ---
-    // If offline AND a query is provided, attempt to find a local match in cached campsites
-    if (!navigator.onLine && q) {
-        const cached = localStorage.getItem('svr_cache_campsites');
-        if (cached) {
-            const objects = JSON.parse(cached);
-            const lowerQ = q.toLowerCase();
-            const matchingCampsite = objects.find(o => 
-                o.properties.name.toLowerCase().includes(lowerQ) || 
-                o.properties.city.toLowerCase().includes(lowerQ)
-            );
-
-            if (matchingCampsite && matchingCampsite.geometry) {
-                sLat = matchingCampsite.geometry.coordinates[1];
-                sLng = matchingCampsite.geometry.coordinates[0];
-                logDebug(`Offline search for "${q}" found local match.`);
-            } else {
-                // If no local match, or no geometry, show error
-                const originalPlaceholder = $searchInput.attr('placeholder');
-                $searchInput.val('').attr('placeholder', `"${q}" lokaal niet gevonden...`).addClass('search-error');
-                setTimeout(() => {
-                    $searchInput.attr('placeholder', originalPlaceholder).removeClass('search-error');
-                }, 3000);
-                isSearching = false;
-                return;
-            }
-        } else {
-            // No cached data, cannot search offline
-            const originalPlaceholder = $searchInput.attr('placeholder');
-            $searchInput.val('').attr('placeholder', 'Offline: Geen cache om te doorzoeken.').addClass('search-error');
-            setTimeout(() => {
-                $searchInput.attr('placeholder', originalPlaceholder).removeClass('search-error');
-            }, 3000);
-            isSearching = false;
-            return;
-        }
-    } else if (q && navigator.onLine) { // Only attempt web geocoding if online and query exists
+    if (q) {
         const coords = await window.getCoordinatesWeb(q);
         if (coords) {
             sLat = coords.latitude; sLng = coords.longitude;
         } else {
-            // Feedback for invalid location (online)
+            // Feedback for invalid location
             const originalPlaceholder = $searchInput.attr('placeholder');
             $searchInput.val('').attr('placeholder', 'Plaats niet gevonden...').addClass('search-error');
             setTimeout(() => {
@@ -1162,10 +1126,78 @@ window.performSearch = async function(forceAPI = false) {
         }
     } else if (currentUserLatLng) {
         sLat = currentUserLatLng.lat; sLng = currentUserLatLng.lng;
-    } else {
-        // Fallback for no query and no current location (should not happen on app start)
-        logDebug("Geen zoekopdracht en geen huidige locatie, gebruikt default.");
     }
+
+    // Update de rode punaise naar de nieuwe locatie
+    if (centerMarker) map.removeLayer(centerMarker);
+    centerMarker = L.marker([sLat, sLng], {
+        icon: L.divIcon({
+            className: 'search-marker',
+            html: '<i class="fa-solid fa-map-pin" style="color:#c0392b;font-size:30px;"></i>',
+            iconSize:[30,30],
+            iconAnchor:[15,30]
+        }),
+        zIndexOffset: 2000
+    }).addTo(map);
+
+    // Instant Search: Als we niet forceren (geen filterwijziging) en we hebben data, dan rekenen we het lokaal uit
+    if (!forceAPI && window.hasDataOnScreen) {
+        const cached = localStorage.getItem('svr_cache_campsites');
+        if (cached) {
+            logDebug("Instant Search via Cache (Volledige lijst)...");
+            const objects = JSON.parse(cached);
+
+            // Bereken afstanden voor ALLE campings in de cache
+            objects.forEach(o => {
+                o.distM = o.geometry ? calculateDistance(sLat, sLng, o.geometry.coordinates[1], o.geometry.coordinates[0]) : 999999;
+            });
+
+            // Sorteer de volledige lijst
+            objects.sort((a, b) => a.distM - b.distM);
+
+            // Render de volledige set
+            renderResults(objects, sLat, sLng);
+            isSearching = false;
+            return;
+        }
+    }
+
+    // Alleen spinner tonen als we echt een API-call gaan doen
+    $('#loading-overlay').css('display', 'flex');
+
+    try {
+        // Gebruik een ruime straal voor de API-call om de cache zo compleet mogelijk te maken
+        let apiUrl = `https://www.svr.nl/api/objects?page=0&lat=${sLat}&lng=${sLng}&distance=500000&limit=2000`;
+        if (window.currentFilters && window.currentFilters.length > 0) {
+            window.currentFilters.forEach(f => apiUrl += `&filter[facilities][]=${f}`);
+        }
+
+        const contents = await fetchWithRetry(apiUrl);
+
+        if (!contents || contents.trim().startsWith("<!doctype") || contents.trim().startsWith("<html") || contents.includes("Internal Server Error")) {
+            throw new Error("SVR stuurde geen geldige JSON");
+        }
+
+        const data = JSON.parse(contents);
+        const allObjects = data.objects || [];
+
+        // Filter out objects where type_camping === 3
+        const objects = allObjects.filter(o => {
+            const props = o.properties;
+            if (props) {
+                const typeCamping = props.type_camping !== undefined ? props.type_camping : -1;
+                return typeCamping !== 3;
+            }
+            return true;
+        });
+
+        logDebug("API resultaten ontvangen. Aantal: " + objects.length);
+
+        // Strip data om binnen de localStorage limiet van 5MB te blijven
+        const strippedObjects = objects.map(o => ({
+            id: o.id,
+            geometry: o.geometry,
+            properties: {
                 name: o.properties.name,
                 city: o.properties.city,
                 type_camping: o.properties.type_camping,
