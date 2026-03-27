@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.35"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.36"; // Increment this number with each commit
 
 // [SECTION: INITIALIZATION]
 (function () {
@@ -955,8 +955,8 @@ window.showSVRDetailPage = function(objectId, source = 'auto') {
             } else if (document.body.classList.contains('map-only-mode')) {
                 source = 'map';
             } else {
-                // Split mode - default to opening in list panel
-                source = 'map'; // Clicked from map, open in list panel
+                // Split mode - default to opening in map panel (right side)
+                source = 'map'; // Clicked from map, open in list panel area
             }
         } else {
             source = isListView ? 'list' : 'map';
@@ -967,16 +967,16 @@ window.showSVRDetailPage = function(objectId, source = 'auto') {
     if (isDesktop) {
         // Remove previous context classes
         detailOverlay.classList.remove('detail-from-map', 'detail-from-list');
-        
+
         // Add context class based on source
-        if (source === 'map') {
-            // Open in right panel (replaces list)
-            detailOverlay.classList.add('detail-from-map');
-        } else {
-            // Open in left panel (replaces map)
+        if (source === 'list') {
+            // Clicked from LIST → Open detail on RIGHT side (replaces map)
             detailOverlay.classList.add('detail-from-list');
+        } else {
+            // Clicked from MAP → Open detail on LEFT side (replaces list)
+            detailOverlay.classList.add('detail-from-map');
         }
-        
+
         // Hide splash on desktop (we're in a panel, not fullscreen)
         if (splashScreen) {
             splashScreen.style.display = 'none';
@@ -1011,7 +1011,7 @@ window.showSVRDetailPage = function(objectId, source = 'auto') {
         backdrop.style.display = 'block';
         setTimeout(() => backdrop.classList.add('open'), 10);
     }
-    
+
     detailOverlay.style.display = 'block';
 
     if (!isDesktop) {
