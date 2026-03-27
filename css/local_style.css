@@ -564,11 +564,11 @@
 }
 
 /* ========================================
-   DESKTOP RESPONSIVE DESIGN (v0.2.31)
-   Centered layout with max-width: 1440px
+   DESKTOP RESPONSIVE DESIGN (v0.2.32)
+   Centered layout with max-width
    ======================================== */
 
-/* Tablet (768px+) - Compact UI elements */
+/* Small Desktop / Large Tablet (768px+) - Compact UI elements */
 @media (min-width: 768px) {
     /* Smaller search bar */
     .search-container { height: 36px; }
@@ -585,11 +585,41 @@
     /* Smaller filter chips */
     .active-filter-chip { font-size: 10px; height: 24px; }
     
-    /* Smaller suggestions */
-    .suggestions-list { max-width: 500px; left: 50% !important; transform: translateX(-50%); }
+    /* Center and limit header width */
+    .svr-header {
+        max-width: 768px;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+    }
+    
+    /* Center and limit map container */
+    #map-container, #list-container {
+        max-width: 768px;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+    }
+    
+    /* List container padding fix */
+    #list-container {
+        margin: 0 auto;
+    }
+    
+    /* Reposition action buttons to align with centered content */
+    .map-actions-stack {
+        right: calc(50% - 384px + 12px) !important;
+    }
+    
+    /* Center suggestions list */
+    .suggestions-list {
+        left: 50% !important;
+        transform: translateX(-50%);
+        max-width: 400px;
+    }
 }
 
-/* Desktop (1024px+) - More compact */
+/* Medium Desktop (1024px+) - Larger centered layout */
 @media (min-width: 1024px) {
     /* Even smaller search */
     .search-container { height: 32px; }
@@ -610,71 +640,60 @@
     
     /* Smaller help text */
     .help-text { font-size: 12px; }
+    
+    /* Larger centered layout */
+    .svr-header {
+        max-width: 1024px;
+    }
+    
+    #map-container, #list-container {
+        max-width: 1024px;
+    }
+    
+    .map-actions-stack {
+        right: calc(50% - 512px + 12px) !important;
+    }
+    
+    .suggestions-list {
+        max-width: 500px;
+    }
 }
 
-/* Large Desktop (1440px+) - Centered layout with margins */
+/* Large Desktop (1440px+) - Full width centered layout */
 @media (min-width: 1440px) {
     /* Body background for visible margins */
     body {
         background-color: #f0f0f0;
     }
     
-    /* Center and limit header width */
+    /* Full width centered layout */
     .svr-header {
         max-width: 1440px;
-        left: 50% !important;
-        right: auto !important;
-        transform: translateX(-50%);
         border-radius: 0 0 12px 12px;
     }
 
-    /* Center and limit map container */
     #map-container, #list-container {
         max-width: 1440px;
-        left: 50% !important;
-        right: auto !important;
-        transform: translateX(-50%);
         box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
-    
-    /* List container padding fix */
-    #list-container {
-        margin: 0 auto;
-    }
 
-    /* Reposition action buttons to align with centered content */
     .map-actions-stack {
         right: calc(50% - 720px + 12px) !important;
     }
 
-    /* Center install banner */
     .install-banner {
         max-width: 1440px;
-        left: 50% !important;
-        right: auto !important;
-        transform: translateX(-50%);
         border-radius: 12px 12px 0 0;
     }
 
-    /* Center iOS instructions */
     .ios-install-instructions {
         max-width: 1440px;
-        left: 50% !important;
-        right: auto !important;
-        transform: translateX(-50%);
     }
 
     /* Larger detail view on desktop */
     #detail-container .detail-sheet-content {
         max-width: 900px;
         margin: 40px auto;
-    }
-    
-    /* Center suggestions list */
-    .suggestions-list {
-        left: 50% !important;
-        transform: translateX(-50%);
-        max-width: 500px;
     }
 }
 
@@ -685,6 +704,6 @@
     }
     
     .map-actions-stack {
-        right: calc(50% - 800px + 12px);
+        right: calc(50% - 800px + 12px) !important;
     }
 }
