@@ -587,30 +587,42 @@
         max-width: 400px;
     }
 
-    /* === KAART: altijd links 50% === */
+    /* === KAART: altijd links 60% === */
     #map-container {
         position: absolute;
-        top: var(--header-height);
+        top: var(--header-height) !important;
         left: 0;
-        width: 50%;
-        height: calc(100vh - var(--header-height));
+        width: 60%;
+        height: calc(100vh - var(--header-height)) !important;
         right: auto !important;
         transform: none !important;
+        z-index: 10;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
-    /* === LIJST: altijd rechts 50%, standaard zichtbaar === */
+    /* Zorg dat de kaart zelf de container vult */
+    #map {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* === LIJST: altijd rechts 40%, standaard zichtbaar === */
     #list-container {
         position: absolute;
-        top: var(--header-height);
+        top: var(--header-height) !important;
         right: 0;
         left: auto !important;
-        width: 50%;
-        height: calc(100vh - var(--header-height));
+        width: 40%;
+        height: calc(100vh - var(--header-height)) !important;
         background: #f5f5f5;
-        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
         transform: none !important;
         max-width: none !important;
-        display: block !important; /* altijd zichtbaar tenzij paneel open */
+        display: block !important;
+        z-index: 1000;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     /* === RECHTER PANEEL (Detail of Filter) ===
@@ -622,12 +634,39 @@
         top: var(--header-height) !important;
         right: 0 !important;
         left: auto !important;
-        width: 50% !important;
+        width: 40% !important;
         height: calc(100vh - var(--header-height)) !important;
         transform: none !important;
         border-radius: 0 !important;
-        box-shadow: -2px 0 8px rgba(0,0,0,0.15) !important;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1) !important;
         z-index: 1500 !important;
+        display: none;
+        overflow: hidden;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Filter content vult het paneel volledig en is scrollbaar */
+    #svr-filter-overlay #svr-filter-overlay-content {
+        height: calc(100% - 60px) !important; /* Ruimte voor header/footer */
+        overflow-y: auto !important;
+        padding: 15px;
+        background: #fff;
+    }
+
+    /* Scrollbar styling voor een betere UX op desktop */
+    #svr-filter-overlay #svr-filter-overlay-content::-webkit-scrollbar {
+        width: 8px;
+    }
+    #svr-filter-overlay #svr-filter-overlay-content::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    #svr-filter-overlay #svr-filter-overlay-content::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+    #svr-filter-overlay #svr-filter-overlay-content::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
     }
 
     /* Detail sheet vult het paneel volledig */

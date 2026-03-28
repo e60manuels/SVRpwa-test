@@ -1,14 +1,285 @@
-local_app.js?v=5:7 SVR PWA v2.5 Start
-local_app.js?v=5:7 Map init...
-Map.js:649 [Violation] Only request geolocation information in response to a user gesture.
-locate @ Map.js:649
-(anonymous) @ local_app.js?v=5:196
-local_app.js?v=5:7 Tegels OK
-local_app.js?v=5:7 CSV OK: 2501
-index.html:115 Service Worker geregistreerd ServiceWorkerRegistration {installing: null, waiting: null, active: ServiceWorker, navigationPreload: NavigationPreloadManager, scope: 'https://e60manuels.github.io/SVRpwa/', …}
-favicon.ico:1  GET https://e60manuels.github.io/favicon.ico 404 (Not Found)
-local_app.js?v=5:7 Fetch via Cloudflare Worker...
-local_app.js?v=5:7 SVR meldt: SVR - Stichting Vrije Recreatie
-local_app.js?v=5:7 HINT: Inloggen op SVR.nl vereist!
-local_app.js?v=5:7 Search fout: SVR stuurde HTML ipv JSON
-/workspace set C:\Users\emanu\AndroidStudioProjects
+local_app.js?v=0.2.37:33 [v0.2.37] SVR PWA v2.5 Start
+local_app.js?v=0.2.37:33 [v0.2.37] Map init...
+local_app.js?v=0.2.37:33 [v0.2.37] Tegels OK
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] DOMContentLoaded event afgevuurd.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] isAppInstalled() checks: isStandalone=false, isIosStandalone=false, isPersistentFlagSet=false
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] App is nog niet geïnstalleerd.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] App is nog niet geïnstalleerd.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Installatiebanner nog niet eerder afgewezen.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] isIOS(): false
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Platform is niet iOS. De installatiebanner wordt getoond na sluiten van help-overlay of user-interactie.
+local_app.js?v=0.2.37:2027 🚀 SVR PWA Start - Checking session...
+local_app.js?v=0.2.37:1872 ❌ No session ID found in localStorage.
+local_app.js?v=0.2.37:2050 ❌ Geen geldige sessie, login scherm tonen...
+(index):1 [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) <input type=​"password" id=​"svr-password" placeholder=​"Wachtwoord" style=​"width:​ 100%;​ padding:​ 12px;​ border:​ 1px solid #ddd;​ border-radius:​ 5px;​ box-sizing:​ border-box;​ font-size:​ 16px;​">​
+local_app.js?v=0.2.37:33 [v0.2.37] CSV OK: 2460
+(index):176 Service Worker geregistreerd ServiceWorkerRegistration {installing: null, waiting: null, active: ServiceWorker, navigationPreload: NavigationPreloadManager, scope: 'http://localhost:8000/', …}
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] beforeinstallprompt event afgevuurd.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] deferredPrompt ingesteld. Activeer de installatieknop.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Installatieknop geactiveerd.
+(index):1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+bootstrap-autofill-overlay-notifications.js:8041 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'includes')
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:8041:81)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+    at new Promise (<anonymous>)
+    at autofill_overlay_content_service_awaiter (bootstrap-autofill-overlay-notifications.js:6997:12)
+    at AutofillOverlayContentService.setQualifiedLoginFillType (bootstrap-autofill-overlay-notifications.js:8034:16)
+    at AutofillOverlayContentService.isIgnoredField (bootstrap-autofill-overlay-notifications.js:8009:23)
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:7460:22)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:8041
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setQualifiedLoginFillType @ bootstrap-autofill-overlay-notifications.js:8034
+isIgnoredField @ bootstrap-autofill-overlay-notifications.js:8009
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7460
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setupOverlayListeners @ bootstrap-autofill-overlay-notifications.js:7457
+setupOverlayOnField @ bootstrap-autofill-overlay-notifications.js:22098
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:22083
+setupOverlayListeners @ bootstrap-autofill-overlay-notifications.js:22082
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:21232
+fulfilled @ bootstrap-autofill-overlay-notifications.js:20939
+Promise.then
+step @ bootstrap-autofill-overlay-notifications.js:20941
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:20942
+collect_autofill_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:20938
+getPageDetails @ bootstrap-autofill-overlay-notifications.js:21205
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:22540
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:22448
+autofill_init_awaiter @ bootstrap-autofill-overlay-notifications.js:22444
+collectPageDetails @ bootstrap-autofill-overlay-notifications.js:22539
+collectPageDetails @ bootstrap-autofill-overlay-notifications.js:22472
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay-notifications.js:22496
+bootstrap-autofill-overlay-notifications.js:8041 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'includes')
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:8041:81)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+    at new Promise (<anonymous>)
+    at autofill_overlay_content_service_awaiter (bootstrap-autofill-overlay-notifications.js:6997:12)
+    at AutofillOverlayContentService.setQualifiedLoginFillType (bootstrap-autofill-overlay-notifications.js:8034:16)
+    at AutofillOverlayContentService.isIgnoredField (bootstrap-autofill-overlay-notifications.js:8009:23)
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:7460:22)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:8041
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setQualifiedLoginFillType @ bootstrap-autofill-overlay-notifications.js:8034
+isIgnoredField @ bootstrap-autofill-overlay-notifications.js:8009
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7460
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setupOverlayListeners @ bootstrap-autofill-overlay-notifications.js:7457
+setupOverlayOnField @ bootstrap-autofill-overlay-notifications.js:22098
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:22083
+setupOverlayListeners @ bootstrap-autofill-overlay-notifications.js:22082
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:21232
+fulfilled @ bootstrap-autofill-overlay-notifications.js:20939
+Promise.then
+step @ bootstrap-autofill-overlay-notifications.js:20941
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:20942
+collect_autofill_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:20938
+getPageDetails @ bootstrap-autofill-overlay-notifications.js:21205
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:22540
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:22448
+autofill_init_awaiter @ bootstrap-autofill-overlay-notifications.js:22444
+collectPageDetails @ bootstrap-autofill-overlay-notifications.js:22539
+collectPageDetails @ bootstrap-autofill-overlay-notifications.js:22472
+AutofillInit.handleExtensionMessage @ bootstrap-autofill-overlay-notifications.js:22496
+local_app.js?v=0.2.37:1924 ✅ Session ID stored in localStorage: eyJiZXRhYWxqYWFyIjoy...
+local_app.js?v=0.2.37:1928 ✅ Login succesvol: Geen bericht
+local_app.js?v=0.2.37:33 [v0.2.37] Laden van data/campings.json (Unified Delivery)...
+local_app.js?v=0.2.37:33 [v0.2.37] Static data geladen en gerenderd: 1176 campings.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Starting delayed background filter fetch...
+local_app.js?v=0.2.37:33 [v0.2.37] Filters ophalen...
+local_app.js?v=0.2.37:33 [v0.2.37] Fetch via Cloudflare Worker Proxy...
+local_app.js?v=0.2.37:33 [v0.2.37] Proxying original request: https://www.svr.nl/objects -> https://svr-proxy-worker.e60-manuels.workers.dev//objects
+local_app.js?v=0.2.37:33 [v0.2.37] Adding X-SVR-Session header: eyJiZXRhYWxqYWFyIjoy...
+[Violation] 'requestIdleCallback' handler took <N>ms
+[Violation] 'requestIdleCallback' handler took <N>ms
+[Violation] 'requestIdleCallback' handler took <N>ms
+[Violation] 'requestIdleCallback' handler took <N>ms
+[Violation] 'requestIdleCallback' handler took <N>ms
+[Violation] 'requestIdleCallback' handler took <N>ms
+local_app.js?v=0.2.37:33 [v0.2.37] Filters succesvol verwerkt
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Help overlay gesloten.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] isAppInstalled() checks: isStandalone=false, isIosStandalone=false, isPersistentFlagSet=false
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] App is nog niet geïnstalleerd.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] isIOS(): false
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Attempting to show PWA install promotion after help overlay close.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] showInstallPromotion() aangeroepen.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] isAppInstalled() checks: isStandalone=false, isIosStandalone=false, isPersistentFlagSet=false
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] App is nog niet geïnstalleerd.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Installatiebanner nog niet eerder afgewezen.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Installatiebanner wordt getoond.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Sluitknop geklikt. Banner verbergen en voorkeur NIET opslaan.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Installatiebanner verborgen.
+[Violation] 'setTimeout' handler took 62ms
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Unified Search/Filter: Alleen filters
+local_app.js?v=0.2.37:796 [Violation] 'click' handler took 700ms
+[Violation] 'setTimeout' handler took 65ms
+local_app.js?v=0.2.37:33 [v0.2.37] Fetching coordinates for "Brummen, Nederland" via Worker proxy.
+local_app.js?v=0.2.37:33 [v0.2.37] Fetch via Cloudflare Worker Proxy...
+local_app.js?v=0.2.37:33 [v0.2.37] Proxying original request: https://nominatim.openstreetmap.org/search?format=json&q=Brummen%2C%20Nederland&limit=1 -> https://svr-proxy-worker.e60-manuels.workers.dev/nominatim.openstreetmap.org/search?format=json&q=Brummen%2C%20Nederland&limit=1
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Unified Search/Filter: Zoeken naar Brummen (Gelderland)
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Fetching SVR detail page for 0f0735af-3b58-4751-a53d-a75486b311b5 via proxy: https://svr-proxy-worker.e60-manuels.workers.dev/object/0f0735af-3b58-4751-a53d-a75486b311b5
+local_app.js?v=0.2.37:33 [v0.2.37] Fetch via Cloudflare Worker Proxy...
+local_app.js?v=0.2.37:33 [v0.2.37] Direct request to Worker: https://svr-proxy-worker.e60-manuels.workers.dev/object/0f0735af-3b58-4751-a53d-a75486b311b5
+local_app.js?v=0.2.37:33 [v0.2.37] Adding X-SVR-Session header: eyJiZXRhYWxqYWFyIjoy...
+[Violation] Forced reflow while executing JavaScript took 87ms
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Initializing bulletproof Swiper...
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Found 10 images for carousel.
+pwa_install.js?v=0.2.37:7 [PWA_INSTALL] Robust Swiper initialized successfully.
+local_app.js?v=0.2.37:1602 [Violation] 'setTimeout' handler took 67ms
+bootstrap-autofill-overlay-notifications.js:8041 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'includes')
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:8041:81)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+    at new Promise (<anonymous>)
+    at autofill_overlay_content_service_awaiter (bootstrap-autofill-overlay-notifications.js:6997:12)
+    at AutofillOverlayContentService.setQualifiedLoginFillType (bootstrap-autofill-overlay-notifications.js:8034:16)
+    at AutofillOverlayContentService.isIgnoredField (bootstrap-autofill-overlay-notifications.js:8009:23)
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:7460:22)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:8041
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setQualifiedLoginFillType @ bootstrap-autofill-overlay-notifications.js:8034
+isIgnoredField @ bootstrap-autofill-overlay-notifications.js:8009
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7460
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setupOverlayListeners @ bootstrap-autofill-overlay-notifications.js:7457
+setupOverlayOnField @ bootstrap-autofill-overlay-notifications.js:22098
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:21922
+fulfilled @ bootstrap-autofill-overlay-notifications.js:20939
+Promise.then
+step @ bootstrap-autofill-overlay-notifications.js:20941
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:20942
+collect_autofill_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:20938
+buildAutofillFieldItem @ bootstrap-autofill-overlay-notifications.js:21911
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+setupOverlayListenersOnMutatedElements @ bootstrap-autofill-overlay-notifications.js:21928
+isAutofillElementNodeMutated @ bootstrap-autofill-overlay-notifications.js:21897
+processMutationRecord @ bootstrap-autofill-overlay-notifications.js:21854
+processMutationRecord @ bootstrap-autofill-overlay-notifications.js:21841
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+processMutationRecords @ bootstrap-autofill-overlay-notifications.js:21842
+processMutationRecords @ bootstrap-autofill-overlay-notifications.js:21100
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+CollectAutofillContentService.processMutations @ bootstrap-autofill-overlay-notifications.js:21105
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:20966
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:5207
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:5204
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+CollectAutofillContentService.handleMutationObserverMutation @ bootstrap-autofill-overlay-notifications.js:21087
+childList
+(anonymous) @ jquery-3.6.0.min.js:2
+He @ jquery-3.6.0.min.js:2
+append @ jquery-3.6.0.min.js:2
+(anonymous) @ local_app.js?v=0.2.37:1595
+setTimeout
+renderDetail @ local_app.js?v=0.2.37:1587
+await in renderDetail
+window.showSVRDetailPage @ local_app.js?v=0.2.37:1007
+onclick @ (index):1
+bootstrap-autofill-overlay-notifications.js:8041 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'includes')
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:8041:81)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+    at new Promise (<anonymous>)
+    at autofill_overlay_content_service_awaiter (bootstrap-autofill-overlay-notifications.js:6997:12)
+    at AutofillOverlayContentService.setQualifiedLoginFillType (bootstrap-autofill-overlay-notifications.js:8034:16)
+    at AutofillOverlayContentService.isIgnoredField (bootstrap-autofill-overlay-notifications.js:8009:23)
+    at AutofillOverlayContentService.<anonymous> (bootstrap-autofill-overlay-notifications.js:7460:22)
+    at Generator.next (<anonymous>)
+    at bootstrap-autofill-overlay-notifications.js:7001:71
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:8041
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setQualifiedLoginFillType @ bootstrap-autofill-overlay-notifications.js:8034
+isIgnoredField @ bootstrap-autofill-overlay-notifications.js:8009
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7460
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:7001
+autofill_overlay_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:6997
+setupOverlayListeners @ bootstrap-autofill-overlay-notifications.js:7457
+setupOverlayOnField @ bootstrap-autofill-overlay-notifications.js:22098
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:22083
+setupOverlayListeners @ bootstrap-autofill-overlay-notifications.js:22082
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:21232
+fulfilled @ bootstrap-autofill-overlay-notifications.js:20939
+Promise.then
+step @ bootstrap-autofill-overlay-notifications.js:20941
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:20942
+collect_autofill_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:20938
+getPageDetails @ bootstrap-autofill-overlay-notifications.js:21205
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+updateAutofillElementsAfterMutation @ bootstrap-autofill-overlay-notifications.js:21955
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:21924
+fulfilled @ bootstrap-autofill-overlay-notifications.js:20939
+Promise.then
+step @ bootstrap-autofill-overlay-notifications.js:20941
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:20942
+collect_autofill_content_service_awaiter @ bootstrap-autofill-overlay-notifications.js:20938
+buildAutofillFieldItem @ bootstrap-autofill-overlay-notifications.js:21911
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+setupOverlayListenersOnMutatedElements @ bootstrap-autofill-overlay-notifications.js:21928
+isAutofillElementNodeMutated @ bootstrap-autofill-overlay-notifications.js:21897
+processMutationRecord @ bootstrap-autofill-overlay-notifications.js:21854
+processMutationRecord @ bootstrap-autofill-overlay-notifications.js:21841
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+processMutationRecords @ bootstrap-autofill-overlay-notifications.js:21842
+processMutationRecords @ bootstrap-autofill-overlay-notifications.js:21100
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+CollectAutofillContentService.processMutations @ bootstrap-autofill-overlay-notifications.js:21105
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:20966
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:5207
+setTimeout
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:5204
+(anonymous) @ bootstrap-autofill-overlay-notifications.js:4903
+requestIdleCallback
+requestIdleCallbackPolyfill @ bootstrap-autofill-overlay-notifications.js:4903
+CollectAutofillContentService.handleMutationObserverMutation @ bootstrap-autofill-overlay-notifications.js:21087
+childList
+(anonymous) @ jquery-3.6.0.min.js:2
+He @ jquery-3.6.0.min.js:2
+append @ jquery-3.6.0.min.js:2
+(anonymous) @ local_app.js?v=0.2.37:1595
+setTimeout
+renderDetail @ local_app.js?v=0.2.37:1587
+await in renderDetail
+window.showSVRDetailPage @ local_app.js?v=0.2.37:1007
+onclick @ (index):1
+m=root,base:1702 [Violation] 'setTimeout' handler took 145ms
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+[Violation] Added non-passive event listener to a scroll-blocking <some> event. Consider marking event handler as 'passive' to make the page more responsive. See <URL>
+m=root,base:1704 [Violation] 'setTimeout' handler took 96ms

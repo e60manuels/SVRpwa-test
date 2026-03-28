@@ -257,22 +257,28 @@ window.SVR_PWA_VERSION = "0.2.37"; // Increment this number with each commit
     };
 
     const css = `
-        #svr-filter-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9990; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        #svr-filter-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1400; display: none; opacity: 0; transition: opacity 0.3s ease; }
         #svr-filter-backdrop.open { display: block; opacity: 1; }
-        #svr-filter-overlay { 
-            position: fixed; top: 88px; left: 0; width: 100%; height: calc(100% - 88px); 
-            background-color: #f0f0f0; z-index: 9995; display: flex; flex-direction: column; 
-            box-sizing: border-box; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-            border-top-left-radius: 12px; border-top-right-radius: 12px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        
+        /* MOBILE STYLES (default) */
+        @media (max-width: 767px) {
+            #svr-filter-overlay { 
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 90vh; 
+                background-color: #f0f0f0; z-index: 9995; display: flex; flex-direction: column; 
+                box-sizing: border-box; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+                border-top-left-radius: 12px; border-top-right-radius: 12px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            }
+            #svr-filter-overlay.open { transform: translateY(0); }
+            .svr-overlay-header { background-color: #f0f0f0; padding: 8px 15px 12px 15px; display: flex; flex-direction: column; align-items: flex-start; border-top-left-radius: 12px; border-top-right-radius: 12px; cursor: ns-resize; }
         }
-        #svr-filter-overlay.open { transform: translateY(0); }
-        .svr-overlay-header { background-color: #f0f0f0; padding: 8px 15px 12px 15px; display: flex; flex-direction: column; align-items: flex-start; border-top-left-radius: 12px; border-top-right-radius: 12px; }
+
+        /* SHARED STYLES (Both Mobile & Desktop) */
         .svr-overlay-title { font-size: 1.2rem; font-weight: bold; margin: 0; color: #008AD3; font-family: 'Befalow', sans-serif; text-align: left; padding-left: 15px; }
         #svr-filter-overlay-content { flex-grow: 1; overflow-y: auto; width: 100%; background-color: #f0f0f0; padding: 15px; box-sizing: border-box; scroll-behavior: smooth; }
         #active-filters-holder { background: #FDCC01; border-radius: 12px; padding: 12px 15px; margin-bottom: 15px; display: none; box-sizing: border-box; width: 100%; position: sticky; top: 0; z-index: 100; }
         .active-filter-tag { display: inline-flex; align-items: center; background: white; padding: 4px 10px; border-radius: 15px; margin: 4px; font-size: 12px; font-weight: bold; color: #008AD3; border: 1px solid #ddd; }
-        .filter-section-card { background: white; border-radius: 12px; margin-bottom: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .filter-section-header { padding: 12px 15px; background: #FDCC01; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .filter-section-card { background: white; border-radius: 12px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow: visible !important; }
+        .filter-section-header { padding: 12px 15px; background: #FDCC01; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative; z-index: 5; }
         .filter-section-header h4 { margin: 0; font-size: 22px; color: #333; font-family: 'Befalow', sans-serif; }
         .filter-section-body { padding: 0 15px; display: none; }
         .filter-section-body.show { display: block; padding-bottom: 10px; }
@@ -292,6 +298,53 @@ window.SVR_PWA_VERSION = "0.2.37"; // Increment this number with each commit
         .filter-sub-toggle.active i { transform: rotate(90deg); }
         .filter-sub-content { display: none; padding-left: 20px; background: #fafafa; }
         .filter-sub-content.show { display: block; }
+
+        /* DESKTOP SPECIFIC (min-width: 768px) */
+        @media (min-width: 768px) {
+            #svr-filter-overlay { 
+                display: flex; flex-direction: column; background-color: #f0f0f0; 
+                border-radius: 0; transform: none !important; transition: none !important;
+                overflow: hidden;
+            }
+            .svr-overlay-header { 
+                background-color: var(--svr-yellow) !important; padding: 15px 20px; 
+                display: flex !important; flex-direction: row !important; 
+                align-items: center; justify-content: space-between; 
+                border-bottom: 1px solid rgba(0,0,0,0.1); flex-shrink: 0;
+                height: 60px; box-sizing: border-box;
+            }
+            /* Hide the drag handle div explicitly */
+            .svr-overlay-header > div:first-child { display: none !important; }
+            
+            .svr-overlay-title { padding: 0; margin: 0; color: #333 !important; font-size: 1.3rem; flex-grow: 1; text-align: left; }
+            .svr-overlay-close { 
+                width: 32px; height: 32px; background: rgba(0,0,0,0.1); 
+                border-radius: 50%; display: flex; align-items: center; 
+                justify-content: center; cursor: pointer; color: #333; 
+                transition: background 0.2s; flex-shrink: 0;
+            }
+            .svr-overlay-close:hover { background: rgba(0,0,0,0.2); }
+
+            /* Sticky categorie-headers voor een betere UX */
+            .filter-section-card { overflow: visible !important; }
+            .filter-section-header { 
+                position: sticky !important; 
+                top: -15px !important; /* Plakt tegen de bovenkant van de content-container */
+                z-index: 100 !important; 
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            /* Content scrollable maken zonder header te pushen */
+            #svr-filter-overlay-content {
+                flex: 1 1 auto;
+                overflow-y: auto !important;
+                background-color: #f8f8f8;
+            }
+            .svr-overlay-footer {
+                flex-shrink: 0;
+                background-color: #f0f0f0;
+            }
+        }
     `;
     const style = document.createElement('style'); style.appendChild(document.createTextNode(css)); document.head.appendChild(style);
 
@@ -301,6 +354,7 @@ window.SVR_PWA_VERSION = "0.2.37"; // Increment this number with each commit
         <div class="svr-overlay-header" id="filter-drag-header">
             <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 10px; pointer-events: none;"><div style="width: 40px; height: 5px; background: #BBB; border-radius: 3px;"></div></div>
             <h3 class="svr-overlay-title">Filters</h3>
+            <div class="svr-overlay-close" onclick="window.hideFilterOverlay()"><i class="fas fa-times"></i></div>
         </div>
         <div id="svr-filter-overlay-content">
             <div id="active-filters-holder"><div id="active-tags-container"></div></div>
@@ -414,7 +468,6 @@ window.hideFilterOverlay = function() {
 
             // Open filter rechts
             openRightPanel('filter');
-            filterEl.style.display = 'block';
             filterEl.classList.add('open');
 
             // Push state voor backknop
@@ -1000,7 +1053,14 @@ window.showSVRDetailPage = function(objectId, source = 'auto') {
         // Open het rechter paneel
         openRightPanel('detail');
 
-        detailOverlay.style.display = 'block';
+        // Synchroniseer kaart op desktop als we vanuit de lijst komen
+        if (source === 'list' && window.staticCampsites) {
+            const camping = window.staticCampsites.find(c => c.id === objectId);
+            if (camping && window.focusOnMarker) {
+                // Focus op marker met HUIDIGE zoomniveau
+                window.focusOnMarker(camping.lat, camping.lng, objectId, map.getZoom());
+            }
+        }
 
         // Push state voor backknop-ondersteuning
         history.pushState({ view: 'detail', objectId: objectId, source: source }, "", `#detail/${objectId}`);
@@ -1080,7 +1140,6 @@ window.handleDetailBack = function() {
                 splashScreen.classList.remove('hide');
             }
         }, 400);
-    }
 
     // Navigate back in history
     if (history.state && history.state.view === 'detail') {
@@ -1107,7 +1166,6 @@ window.onpopstate = (e) => {
             if (e.state && e.state.view === 'detail' && e.state.objectId) {
                 // Detail heropenen via history (bijv. forward-navigatie)
                 openRightPanel('detail');
-                document.getElementById('detail-container').style.display = 'block';
                 renderDetail(e.state.objectId);
             }
             if (!e.state || e.state.view === 'map' || e.state.view === 'list' || e.state.view === 'split') {
@@ -1244,13 +1302,19 @@ function openRightPanel(type) {
     const detailEl = document.getElementById('detail-container');
     const filterEl = document.getElementById('svr-filter-overlay');
 
-    // Sluit het tegenovergestelde paneel eerst
+    // Sluit beide eerst (schone lei)
+    detailEl.style.display = 'none';
+    detailEl.classList.remove('open');
+    filterEl.style.display = 'none';
+    filterEl.classList.remove('open');
+
+    // Toon de gevraagde met FLEX (belangrijk voor header fix)
     if (type === 'detail') {
-        filterEl.style.display = 'none';
-        filterEl.classList.remove('open');
-    } else {
-        detailEl.style.display = 'none';
-        detailEl.classList.remove('open');
+        detailEl.style.display = 'flex';
+        detailEl.classList.add('open');
+    } else if (type === 'filter') {
+        filterEl.style.display = 'flex';
+        filterEl.classList.add('open');
     }
 
     document.body.classList.add('panel-open');
@@ -1284,6 +1348,8 @@ window.closeRightPanel = closeRightPanel;
 // Initialiseer desktop layout
 if (window.innerWidth >= 768) {
     document.body.classList.add('split-mode');
+    // Forceer schone lei voor panelen
+    closeRightPanel();
     // Zorg dat kaart correct geladen wordt
     setTimeout(() => { if (map) map.invalidateSize(); }, 200);
 }
@@ -1747,14 +1813,13 @@ async function renderDetail(objectId) {
     }
 }
 
-window.focusOnMarker = function(lat, lng, objectId) {
+window.focusOnMarker = function(lat, lng, objectId, targetZoom = 14) {
     const isDesktop = window.innerWidth >= 768;
     if (!isDesktop) {
         applyState({ view: 'map' });
     }
     // Op desktop: kaart is altijd zichtbaar, geen state-switch nodig
     const targetLatLng = L.latLng(lat, lng);
-    const standardZoom = 14; 
     window.skipFitBounds = true;
 
     // Find the marker by ID
@@ -1765,9 +1830,9 @@ window.focusOnMarker = function(lat, lng, objectId) {
     }
 
     const finalizeFocus = () => {
-        // Force the standard zoom level and position
-        map.setView(targetLatLng, standardZoom, { animate: true });
-        
+        // Use provided targetZoom or default to 14
+        map.setView(targetLatLng, targetZoom, { animate: true });
+
         // Wait for the final movement to finish before opening popup
         setTimeout(() => {
             if (foundMarker) {
@@ -1775,7 +1840,6 @@ window.focusOnMarker = function(lat, lng, objectId) {
             }
         }, 300);
     };
-
     if (foundMarker) {
         if (markerCluster.hasLayer(foundMarker)) {
             // zoomToShowLayer handles the cluster expansion

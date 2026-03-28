@@ -118,10 +118,10 @@ This script:
 
 | Resource Type | Strategy | Cache Name |
 |--------------|----------|------------|
-| App Shell (HTML, CSS, JS) | Network First | `svr-pwa-cache-v0.2.37` |
+| App Shell (HTML, CSS, JS) | Network First | `svr-pwa-cache-v0.2.36` |
 | Map Tiles (OSM) | Cache First | `svr-pwa-map-tiles` |
 | API Requests | Network Only | Not cached |
-| External Libraries | Network First | `svr-pwa-cache-v0.2.37` |
+| External Libraries | Network First | `svr-pwa-cache-v0.2.36` |
 
 ### Key Dependencies
 
@@ -141,8 +141,8 @@ This script:
 
 ### Version Tracking
 
-- **App Version**: Tracked in `window.SVR_PWA_VERSION` (currently `0.2.37`)
-- **Cache Version**: Embedded in Service Worker cache name (`v0.2.37`)
+- **App Version**: Tracked in `window.SVR_PWA_VERSION` (currently `0.2.36`)
+- **Cache Version**: Embedded in Service Worker cache name (`v0.2.36`)
 - **Data Version**: `data/campings.json` includes `updated` timestamp and `version` field
 
 ---
@@ -168,25 +168,6 @@ This script:
 ✅ **v0.2.31**: Desktop responsive breakpoints (768px, 1024px, 1440px, 1920px)
 ✅ **v0.2.35**: Split-screen desktop layout (50/50 list left, map right)
 ✅ **v0.2.36**: Contextual detail panel (opens on opposite side of click source)
-
-### Key Achievements **v0.2.37**:
-
-   * Desktop Layout v0.2.37 Completed:
-       * Implemented a 60/40 split-screen desktop layout (60% map on the left, 40% for list/detail/filter on the right).
-       * Achieved perfect alignment with no gaps or overlaps between the header and content containers.
-
-   * Filter Panel Stability & UX:
-       * Resolved issues with filter overlay positioning, scrolling behavior, and header sticking.
-       * Implemented a desktop-specific close button for the filter panel.
-       * Improved scrollability within the filter content area with sticky category headers.
-
-   * Map-List Synchronization:
-       * Implemented linking the "INFO" button click in the list view to synchronizing the map on desktop. Clicking
-         "INFO" now centers the map on the corresponding camping marker, opens its popup, and crucially, maintains the
-         current zoom level.
-
-   * Versioning:
-       * Updated app and cache versions to v0.2.37 across relevant files (local_app.js, sw.js, index.html).
 
 ### Current Work In Progress (v0.2.36+)
 
