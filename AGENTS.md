@@ -117,10 +117,10 @@ This script:
 
 | Resource Type | Strategy | Cache Name |
 |--------------|----------|------------|
-| App Shell (HTML, CSS, JS) | Network First | `svr-pwa-cache-v0.2.39` |
+| App Shell (HTML, CSS, JS) | Network First | `svr-pwa-cache-v0.2.84` |
 | Map Tiles (OSM) | Cache First | `svr-pwa-map-tiles` |
 | API Requests | Network Only | Not cached |
-| External Libraries | Network First | `svr-pwa-cache-v0.2.39` |
+| External Libraries | Network First | `svr-pwa-cache-v0.2.84` |
 
 ### Key Dependencies
 
@@ -140,7 +140,7 @@ This script:
 
 ### Version Tracking
 
-- **App Version**: Tracked in `window.SVR_PWA_VERSION` (currently `0.2.60`)
+- **App Version**: Tracked in `window.SVR_PWA_VERSION` (currently `0.2.84`)
 - **Cache Version**: Embedded in Service Worker cache name (`v0.2.60`)
 - **Data Version**: `data/campings.json` includes `updated` timestamp and `version` field
 
@@ -336,6 +336,24 @@ This file is the final, UI-ready dataset used by the PWA. It acts as a cache of 
    * Versioning:
        * Updated app and cache versions to v0.2.44 across all files.
        * Service Worker cache invalidated for fresh deployment.
+
+### Key Achievements **v0.2.88**:
+
+   * Tablet Two-View (mobiel rechtop, desktop liggend):
+       * Kantelpunt verlegd van breedte-only (`min-width: 768px`) naar **liggend én ≥1024px** (`isDesktopView()` in `js/local_app.js` + `@media (min-width: 1024px) and (orientation: landscape)` via alle desktop-blocks in `css/local_style.css` en de inline overlay-CSS).
+       * Doel: een 10"-tablet toont rechtop (portrait) de mobiele fullscreen-view en liggend (landscape) de desktop 2-pane-view (kaart links, lijst rechts). Brede telefoons in landscape (max ~950px CSS) blijven de mobiele view houden.
+       * Alle ~22 JS-breakpointchecks (`window.innerWidth >= 768`) vervangen door de centrale helper; toelichting + randgeval onderaan de changelog.
+       * Dynamisch wisselen bij draaien: `resize` + `orientationchange` handler (`applyViewportMode()`) schakelt layout om, ruimt panelen/geschiedenis op en laat `map.invalidateSize()` lopen.
+       * Randgeval: exacte inch-detectie is in CSS/JS niet mogelijk; 1024px is de praktische scheiding tussen 10"-tablets (liggend ≥1024px) en brede telefoons (≤~950px). Sub-10"-tablets-met-brede-landscape (bv. iPad-mini) kunnen hierdoor tóch desktop-view krijgen.
+
+### Key Achievements **v0.2.84**:
+
+   * Robuuste release-update óók voor installaties met een verouderde Service Worker:
+       * Symptoom: na deploys bleef de geïnstalleerde PWA soms (lang) op een oude versie hangen, óók ná de v0.2.63 SW-rolout-fix — pas na site-data/cookies wissen kwam de nieuwe versie door.
+       * Oorzaak: de SW-updatecheck rust op byte-vergelijking van `sw.js`. GitHub Pages/Fastly cachet `sw.js` tot 10 minuten (`max-age=600`); landt de check in dat venster, dan retourneert de CDN-edge de byte-identieke oude `sw.js` → geen update gedetecteerd (dezelfde staleness als bij v0.2.63, maar nu via een late edge-refresh i.p.v. `updateViaCache`).
+       * Fix (versiepobe): bij opstart wordt `version.json` gecheryst met unieke querystring (`?t=Date.now()`, `cache:'no-store'` → altijd CDN-miss). Bij mismatch met `window.SVR_PWA_VERSION` → toast "Nieuwe versie beschikbaar" en éénmalige automatische reload per sessie (guard via `sessionStorage`). Onafhankelijk van SW-update-timing en de CDN-edge.
+       * `version.json` staat bewust NIET in de SW-precache (nooit stale); `update-version.js` bumped hem voortaan automatisch mee.
+       * Veldtest: beide PWAs kwamen na een deploy binnen één opstart op de nieuwe versie, zonder cookies te wissen — ook met een oude actieve SW.
 
 ### Key Achievements **v0.2.64**:
 
