@@ -140,8 +140,8 @@ This script:
 
 ### Version Tracking
 
-- **App Version**: Tracked in `window.SVR_PWA_VERSION` (currently `0.2.84`)
-- **Cache Version**: Embedded in Service Worker cache name (`v0.2.60`)
+- **App Version**: Tracked in `window.SVR_PWA_VERSION` (currently `0.2.89`)
+- **Cache Version**: Embedded in Service Worker cache name (`v0.2.89`)
 - **Data Version**: `data/campings.json` includes `updated` timestamp and `version` field
 
 ---
@@ -337,6 +337,17 @@ This file is the final, UI-ready dataset used by the PWA. It acts as a cache of 
        * Updated app and cache versions to v0.2.44 across all files.
        * Service Worker cache invalidated for fresh deployment.
 
+### Key Achievements **v0.2.89**:
+
+   * Geïnstalleerde PWA op tablets (desktop 2-pane liggend) én oude tablets in portrait:
+       * Oorzaak 1 — `manifest.json` had `"orientation": "portrait"`: browsers passen dat niet toe in een browsertab, maar Android/Chrome WEL bij een geïnstalleerde (standalone) PWA → de app kon nooit landscape worden → desktop 2-pane verscheen niet op een geïnstalleerde tablet, ook niet liggend (via URL in Chrome werkte het wél).
+       * Fix 1: `"orientation": "portrait"` verwijderd uit `manifest.json`. Geïnstalleerde tablet draait nu vrij mee → liggend = desktop 2-pane view. Telefoons behouden de portrait-UX via het bestaande `#portrait-lock`-overlay (`@media (orientation: landscape) and (max-width: 900px)`).
+       * Oorzaak 2 — CSS-breakpoint-kloof 768–1023px: de v0.2.88-mobiele overlay-styles gelden tot `max-width: 767px`, desktop pas vanaf `min-width: 1024px` én landscape. Een 1280×800-tablet (bv. oude Samsung Galaxy Tab A) heeft in portrait ~800px CSS-breedte → géén van beide media-queries matcht → de JS-aangemaakte `#svr-filter-overlay` kreeg géén styling/verberg-transform en toonde de filter-headers ("Zoek op land", "Populaire faciliteiten") over de kaart op het home-screen. (Geen PWA-compatibiliteitsprobleem van Android 8.1: dat ondersteunt PWA's gewoon.)
+       * Fix 2: mobiele media-query in de inline overlay-CSS van `js/local_app.js` verruimd naar `@media (max-width: 1023px), (orientation: portrait)` — alle niet-desktop viewports (768–1023px én rechtop ≥1024px) krijgen nu de mobiele fullscreen-view, geen unstyled gat meer.
+
+   * Versioning:
+       * App en cache naar v0.2.89 gebumpt (local_app.js, pwa_install.js, index.html, sw.js, version.json, merge-and-enrich.js).
+
 ### Key Achievements **v0.2.88**:
 
    * Tablet Two-View (mobiel rechtop, desktop liggend):
@@ -424,9 +435,11 @@ This file is the final, UI-ready dataset used by the PWA. It acts as a cache of 
 
 ## Desktop Split-Screen Layout (v0.2.35+)
 
-### Layout Breakpoint: 768px
+### Layout Breakpoint (sinds v0.2.88): ≥1024px én liggend
 
-**Desktop (≥768px):**
+Kantelpunt tussen mobiele view en desktop 2-pane: **liggend én breedte ≥1024px** (zie `isDesktopView()` in `js/local_app.js` en `@media (min-width: 1024px) and (orientation: landscape)` in CSS). Vóór v0.2.88 was dit `min-width: 768px`; daarvoor geldt 768–1023px nu de mobiele fullscreen-view (sinds v0.2.89 geen unstyled gat meer).
+
+**Desktop (≥1024px én liggend):**
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  [SVR Logo]    [====Zoekveld====]  [Filter Chips →]        │
@@ -439,7 +452,7 @@ This file is the final, UI-ready dataset used by the PWA. It acts as a cache of 
 └──────────────────────────┴──────────────────────────────────┘
 ```
 
-**Mobile (<768px):**
+**Mobile (overige viewports: <1024px of rechtop):**
 - Toggle wisselt tussen kaart en lijst (fullscreen)
 - Detail opent als fullscreen overlay
 - Filter opent als fullscreen overlay

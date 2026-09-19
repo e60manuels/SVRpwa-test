@@ -1,5 +1,5 @@
 // VERSION COUNTER - UPDATE THIS WITH EACH COMMIT FOR VISIBILITY
-window.SVR_PWA_VERSION = "0.2.88"; // Increment this number with each commit
+window.SVR_PWA_VERSION = "0.2.89"; // Increment this number with each commit
 
 // Tablet/desktop-detectie voor de two-view PWA:
 // - Rechtop (portrait) of smal scherm  => mobiele view (fullscreen, toggle).
@@ -370,8 +370,10 @@ function getCampingNameMatches(q) {
         #svr-filter-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1400; display: none; opacity: 0; transition: opacity 0.3s ease; }
         #svr-filter-backdrop.open { display: block; opacity: 1; }
         
-        /* MOBILE STYLES (default) */
-        @media (max-width: 767px) {
+        /* MOBILE STYLES (default)
+           Dek alle niet-desktop viewports: <=1023px (o.a. 768-1023px tablets die
+           vóór v0.2.88 desktop waren) én rechtop (portrait, ook >=1024px). */
+        @media (max-width: 1023px), (orientation: portrait) {
             #svr-filter-overlay, #svr-favorites-overlay {
                 position: fixed; bottom: 0; left: 0; width: 100%; height: 90vh;
                 background-color: #f0f0f0; z-index: 9995; display: flex; flex-direction: column;
